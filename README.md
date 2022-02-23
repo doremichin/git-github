@@ -53,6 +53,37 @@ git revert (되돌릴 해시)
 # :wq 로 커밋 메세지 저장
 # 커밋끼리 에러가 발생하면 해결한 후 git revert --continue 로 마무리
 ```
+
+치워두기
+```shell
+# 현재 변경 사항을 잠시 치워두기
+git stash # git stash save 와 같음
+
+# 원하는 시점, 브랜치에서 다시 적용
+git stash pop
+
+# 원하는 파일만 stash 하기 
+git stash -p  # y, n을 입력해서 파일을 선택
+
+# 메세지와 함께 치워두기
+git stash -m 'readme 수정'
+
+# 스태시 목록 보기
+git stash list
+
+# 목록에서 스태시 넘버를 확인 후 원하는 스태시 적용하기
+git stash apply stash@{0}
+```
+
+| 명령어 | 설명 | 비고 |
+|----|----|----|
+| git stash | 현 작업들 치워두기 | git stash save와 같음 |
+| git stash apply | 치워둔 마지막 항목(번호 없을 시) 적용 | 끝에 번호로 항목 지정 가능 |
+| git stash drop | 치워둔 마지막 항목(번호 없을 시) 삭제 | 끝에 번호로 항목 지정 가능 |
+| git stash pop | 치워둔 마지막 항목(번호 없을 시) 적용 및 삭제 | apply + drop 기능 |
+| git stash branch (브랜치명) | 새 브랜치를 생성해서 pop | 충돌 사항이 있는 상황 등에 유용 |
+| git stash clear | 치워둔 모든 항목들 비우기 | |
+
 <br/>
 
 ### 3. branch
