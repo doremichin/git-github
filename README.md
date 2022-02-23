@@ -23,6 +23,11 @@
 git status
 ```
 
+내역 보기
+```shell
+git log
+```
+
 파일 담기 / stage에 담기
 ```shell
 git add .  #모든 파일을 스테이지로 올림
@@ -38,12 +43,26 @@ git commit -m "메세지를 적어서 커밋" # 메세지와 같이 커밋
 git commit -am "수정된 사항을 자동으로 stage에 올리고 커밋"
 # add + commit 이라고 보면 됨
 # 파일을 수정 했을 땐 사용 가능하지만 생성 했을 땐 git add 로 추가해줘야함
-```
 
-내역 보기
-```shell
-git log
+#커밋 메세지 변경
+git commit --amend
+git commit --amend -m 'add new friends'
 ```
+과거의 커밋의 수정, 삭제 ,병합, 분할
+```shell
+git rebase -i (대상 바로 이전 커밋의 해시)
+# ex) git rebase -i a89f5226f413aa79a5781656be8abc9870f34629
+# 각각의 커밋 앞에 pick이 붙어 있는 창이 나옴
+# 커밋 앞에 pick에 여러 명령어를 입력해서 다양한 수정이 가능
+```
+| 명령어 | 설명 |
+| ---- | ----|
+| p , pick | 커밋 그대로 두기(기본값) | 
+| r , reword | 커밋 메세지 변경 |
+| e , edit | 수정을 위해 정지 |
+| d , drop | 커밋 삭제 | 
+| s , squash | 이전 커밋에 합치기 |
+
 
 과거로 돌아가기
 ```shell
