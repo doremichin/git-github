@@ -18,23 +18,23 @@
 ### 2. git 명령어
 
 
-변경사항 확인
+**변경사항 확인 / git status**
 ```shell
 git status
 ```
 
-내역 보기
+**내역 보기 / git log**
 ```shell
 git log
 ```
 
-파일 담기 / stage에 담기
+**파일 담기 / stage에 담기 / git add** 
 ```shell
 git add .  #모든 파일을 스테이지로 올림
 git add tigers.yaml # tigers.yaml 파일 하나를 담는다  
 ```
 
-커밋하기
+**커밋하기 / git commit**
 ```shell
 git commit
 
@@ -48,7 +48,7 @@ git commit -am "수정된 사항을 자동으로 stage에 올리고 커밋"
 git commit --amend
 git commit --amend -m 'add new friends'
 ```
-과거의 커밋의 수정, 삭제 ,병합, 분할
+**과거의 커밋의 수정, 삭제 ,병합, 분할**
 ```shell
 git rebase -i (대상 바로 이전 커밋의 해시)
 # ex) git rebase -i a89f5226f413aa79a5781656be8abc9870f34629
@@ -64,16 +64,21 @@ git rebase -i (대상 바로 이전 커밋의 해시)
 | s , squash | 이전 커밋에 합치기 |
 
 
-과거로 돌아가기
+**과거로 돌아가기 / git reset, git revert**
 ```shell
 git reset --hard # 뒤에 해시가 없으면 마지막 커밋을 가리킨다.
 
 git revert (되돌릴 해시)
 # :wq 로 커밋 메세지 저장
 # 커밋끼리 에러가 발생하면 해결한 후 git revert --continue 로 마무리
+
+# reset으로 사라진 커밋 복구하는 방법
+git reflog # 커밋마다의 기록 내역이 나옴
+# 이를 사용해 해시 값을 복사해서
+git reset --hard (해시 값) # 리셋한 커밋 이전으로 돌아갈 수 있음
 ```
 
-치워두기
+**치워두기 / git stash**
 ```shell
 # 현재 변경 사항을 잠시 치워두기
 git stash # git stash save 와 같음
@@ -102,12 +107,30 @@ git stash apply stash@{0}
 | git stash pop | 치워둔 마지막 항목(번호 없을 시) 적용 및 삭제 | apply + drop 기능 |
 | git stash branch (브랜치명) | 새 브랜치를 생성해서 pop | 충돌 사항이 있는 상황 등에 유용 |
 | git stash clear | 치워둔 모든 항목들 비우기 | |
+<br/>
 
+**커밋되지 않은 변경사항 되돌리기 / git restore**
+```shell
+# stage에 올라가지 않은 파일들을 원래 상태로 복구
+git restore (파일명)
+
+# stage에 올라간 파일을 다시 워킹 디렉토리로 돌려놓기
+git restore --staged (파일명)
+
+# 파일을 특정 커밋의 상태로 되돌리기
+git restore --source=(커밋 해시) (파일명)
+```
+
+**다른 브랜치의 특정한 커밋 하나를 가져오기 / git cherry-pick**
+```shell
+# 현재 브랜치에 다른 브랜치 커밋을 가져온다.
+git cherry-pick (커밋 해시 값)
+```
 <br/>
 
 ### 3. branch
 
-브랜치 생성, 확인, 이동
+**브랜치 생성, 확인, 이동 / git branch , git switch**
 ```shell
 # myeoni-branch 라는 브랜치 생성
 git branch myeoni-branch
@@ -134,7 +157,7 @@ git branch -m (기존 브랜치명) (새 브랜치명)
 ```
 브랜치 합치기
 
-merge
+**merge / git merge**
 ```shell
 # myeoni-branch를 main 브랜치로 merge 하는 상황
 # git switch main  // 먼저 main 브랜치로 이동
@@ -152,7 +175,7 @@ git commit # 으로 병합
 * merge는 reset으로 되돌리기 가능 
 * merge도 하나의 커밋
 
-rebase
+**rebase / git rebase**
 ```shell
 # myeoni-branch 를 main 브랜치로 rebase 하는 상홍
 # git switch myeoni-branch // 먼저 myeoni-branch 로 이동
@@ -177,18 +200,18 @@ git rebase --continue #rebase 계속하기
 
 ### 4. github
 
-원격 저장소에서 프로젝트 다운 받기
+**원격 저장소에서 프로젝트 다운 받기**
 ```shell
 git clone (원격 저장소 주소) 
 ```
 
-원격 저장소 연결
+**원격 저장소 연결**
 ```shell
 # origin  부분은 다른 이름으로 수정 가능
 git remote add origin (원격 저장소 주소)
 ```
 
-push , pull
+**push , pull**
 ```shell
 # 현재 브랜치에서 어떤 원격의 어떤 브랜치로 기본 설정할 것인지 정한다.
 git push -u origin main
@@ -200,7 +223,7 @@ git push
 git pull
 ```
 
-로컬과 원격의 저장소 내용이 다를 때
+**로컬과 원격의 저장소 내용이 다를 때**
 ```shell
 git pull --no-rebase # merge 방식
 # 원격 브랜치와 로컬 브랜치를 분기 태운 다음 머지 시키는 방식
@@ -209,7 +232,7 @@ git pull --rebase  # rebase 방식
 # 원격 브랜치을 rebase 한 다음 로컬 브랜치를 이어 붙임  
 ```
 
-로컬 브랜치와 원격 브랜치의 push, pull
+**로컬 브랜치와 원격 브랜치의 push, pull**
 ```shell
 # 로컬과 원격의 브랜치 모두 확인
 git branch --all
@@ -225,7 +248,7 @@ git switch -t origin/remote-branch
 # origin 저장소의 remote-branch를 로컬로 가져옴
 ```
 
-브랜치 삭제
+**브랜치 삭제**
 ```shell
 # 로컬 브랜치 삭제
 git branch -d (로컬 브랜치명)
@@ -233,4 +256,38 @@ git branch -d (로컬 브랜치명)
 # 원격 브랜치 삭제
 git push (원격이름) --delete (원격의 브랜치명)
 git push origin --delete remote-branch
+```
+
+### 5. 태그
+
+**로컬**
+```shell
+# 마지막 커밋에 태그 달기
+git tag (태그 이름) # ex) git tag v2.0.0
+
+# 현존하는 태그 확인
+git tag
+
+# 원하는 태그 내용 확인
+git show v2.0.0
+
+# 원하는 커밋에 태그 달기
+git tag (태그 이름) (커밋 해시) -m (메세지)
+
+# 원하는 패턴으로 필터링
+git tag -l (조건) # ex) git tag -l 'v1.*'
+
+# 원하는 버전으로 체크아웃
+git checkout v2.0.0
+```
+**원격**
+```shell
+# 특정 태그 원격에 올리기
+git push (원격명) (태그명)
+
+# 특정 태그 원격에서 삭제
+git push --delete (원격명) (태그명)
+
+# 로컬의 모든 태그 원격에 올리기
+git push --tags
 ```
